@@ -7,7 +7,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score, confusion_matrix, roc
 from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from imblearn.over_sampling import SMOTE  # 用于平衡数据
+from imblearn.over_sampling import SMOTE  
 from sklearn.cross_decomposition import PLSRegression
 
 def calculate_vip(pls_model, X):
@@ -41,7 +41,7 @@ X_resampled, y_resampled = smote.fit_resample(X, y)
 
 xtrain, xtest, ytrain, ytest = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=42, stratify=y_resampled)
 
-# 特征标准化（对于 XGBoost 和 RandomForest，标准化有时能提高效果）
+
 scaler = StandardScaler()
 xtrain = scaler.fit_transform(xtrain)
 xtest = scaler.transform(xtest)
@@ -156,7 +156,7 @@ plt.title("Ensemble Model Feature Importances")
 plt.show()
 
 
-pls = PLSRegression(n_components=2)  # 可以根据实际情况调整成分数量
+pls = PLSRegression(n_components=2)  
 pls.fit(xtrain, ytrain)
 vip_values = calculate_vip(pls, xtrain)
 
